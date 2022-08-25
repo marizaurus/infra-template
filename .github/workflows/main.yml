@@ -14,7 +14,11 @@ jobs:
 
       - run: npm ci
       - run: npm run test
-      - run: node ./script.js
+      - env:
+          TICKET_ID: ${{ secrets.TICKET_ID }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          ORG_ID: ${{ secrets.ORG_ID }}
+        run: node ./script.js
 
   lint:
     runs-on: ubuntu-latest
