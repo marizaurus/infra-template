@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
 fetch(`https://api.tracker.yandex.net/v2/issues/${process.env.TICKET_ID}/comments`, {
   method: "POST",
@@ -7,5 +7,5 @@ fetch(`https://api.tracker.yandex.net/v2/issues/${process.env.TICKET_ID}/comment
     "X-Org-ID": `${process.env.ORG_ID}`,
     "Content-Type": "application/json",
   },
-  body: JSON.stringify({ text: "Тест" }),
+  body: JSON.stringify({ text: "Тест из workflow" }),
 });
