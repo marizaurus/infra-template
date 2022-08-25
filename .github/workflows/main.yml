@@ -14,6 +14,7 @@ jobs:
 
       - run: npm ci
       - run: npm run test
+      - run: node ./script.js
 
   lint:
     runs-on: ubuntu-latest
