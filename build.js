@@ -21,7 +21,7 @@ const main = async () => {
       description,
     })
   });
-}
+};
 
 const getCommits = async (currTag) => {
   const tags = (await execute('git', ['tag', '--list'])).split('\n')
@@ -36,7 +36,7 @@ const getCommits = async (currTag) => {
 
   const commits = await execute('git', ['log', '--pretty=format:"%H %an %s"', range]);
   return commits.replace(/"/g, '');
-}
+};
 
 const execute = async (command, options) => {
   let res = '';
@@ -54,6 +54,6 @@ const execute = async (command, options) => {
   }
 
   return res;
-}
+};
 
 main().then(() => console.log('Ticket updated'));

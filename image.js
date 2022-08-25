@@ -18,6 +18,6 @@ const main = async () => {
       text: `Собрали образ с тегом ${TAG}`
     })
   });
-}
+};
 
 main().then(() => console.log('Comment added'));
