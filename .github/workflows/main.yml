@@ -12,32 +12,39 @@ jobs:
         with:
           node-version: '16.16.0'
 
-      - run: npm ci
-      - run: npm run test
-      - env:
+      - name: 'install dependencies'
+        run: npm ci
+      - name: 'run tests'
+        run: npm run test
+      - name: 'run linter'
+        run: npm run lint
+      - name: 'check ts'
+        run: npm run ts
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/rc-')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.16.0
+
+      - name: 'install dependencies'
+        run: npm ci
+      - name: 'update ticket'
+        env:
+          TAG: ${{ github.ref_name }}
+          AUTHOR: ${{ github.actor }}
           TICKET_ID: ${{ secrets.TICKET_ID }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
           ORG_ID: ${{ secrets.ORG_ID }}
-        run: node ./script.js
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.16.0'
-
-      - run: npm ci
-      - run: npm run lint
-
-  typescript:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.16.0'
-
-      - run: npm ci
-      - run: npm run ts
+        run: node ./build.js
+      - name: 'build image'
+        env:
+          TAG: ${{ github.ref_name }}
+          TICKET_ID: ${{ secrets.TICKET_ID }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          ORG_ID: ${{ secrets.ORG_ID }}
+        run: node ./image.js
