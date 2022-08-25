@@ -19,6 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "serve": "serve -s build",
     "lint": "./node_modules/.bin/eslint .",
     "ts": "./node_modules/.bin/tsc",
     "test": "react-scripts test",
