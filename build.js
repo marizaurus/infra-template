@@ -1,9 +1,6 @@
 const fetch = require("node-fetch");
 const exec = require("@actions/exec");
 
-const a = 1;
-a = 'abc';
-
 const { TAG, AUTHOR, TICKET_ID, AUTH_TOKEN, ORG_ID } = process.env;
 const headers = {
   Authorization: `OAuth ${AUTH_TOKEN}`,
